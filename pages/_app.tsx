@@ -1,6 +1,26 @@
-import '@/styles/globals.css'
-import type { AppProps } from 'next/app'
+import React, { useEffect, useState } from "react";
+import "./connectButton.css";
+import { Mainnet, DAppProvider, Config, Goerli } from "@usedapp/core";
 
-export default function App({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />
+import { getDefaultProvider } from "ethers";
+import ConnectButton from "./components/ConnectButton";
+
+const config: Config = {
+  readOnlyChainId: Mainnet.chainId,
+  readOnlyUrls: {
+    [Mainnet.chainId]: getDefaultProvider("mainnet"),
+    [Goerli.chainId]: getDefaultProvider("goerli"),
+  },
+};
+
+function App() {
+  return (
+    <DAppProvider config={config}>
+      <div>
+        <ConnectButton />
+      </div>
+    </DAppProvider>
+  );
 }
+
+export default App;
