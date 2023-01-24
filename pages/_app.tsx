@@ -4,6 +4,7 @@ import { Mainnet, DAppProvider, Config, Goerli } from "@usedapp/core";
 
 import { getDefaultProvider } from "ethers";
 import ConnectButton from "./components/ConnectButton";
+import { ClientRenderer } from "./hooks/ClientRenderer";
 
 const config: Config = {
   readOnlyChainId: Mainnet.chainId,
@@ -17,7 +18,9 @@ function App() {
   return (
     <DAppProvider config={config}>
       <div>
-        <ConnectButton />
+        <ClientRenderer>
+          <ConnectButton />
+        </ClientRenderer>
       </div>
     </DAppProvider>
   );
